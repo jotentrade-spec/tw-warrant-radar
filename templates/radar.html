@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Radar | 券商回收權證雷達{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow">Top 100</p>
+        <h1>候選權證雷達</h1>
+      </div>
+      <form action="{{ url_for('scan') }}" method="post">
+        <button type="submit">重新掃描</button>
+      </form>
+    </div>
+    {% include "_warrant_table.html" %}
+  </section>
+{% endblock %}
