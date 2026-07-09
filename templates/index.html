@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}首頁 | 券商回收權證雷達{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Market Maker Radar</p>
+      <h1>券商回收權證雷達</h1>
+      <p>自動讀取 TWSE/TPEX OpenAPI，尋找低價、仍有委買、委賣存在、成交量存在且剩餘天數足夠的權證候選。</p>
+    </div>
+    <form action="{{ url_for('scan') }}" method="post">
+      <button type="submit">立即掃描</button>
+    </form>
+  </section>
+
+  <section class="summary-grid">
+    <div>
+      <span>候選 API</span>
+      <strong>{{ apis|length }}</strong>
+    </div>
+    <div>
+      <span>最新候選</span>
+      <strong>{{ rows|length }}</strong>
+    </div>
+    <div>
+      <span>雷達邏輯</span>
+      <strong>低買高收</strong>
+    </div>
+  </section>
+
+  <section class="panel info-panel">
+    <h2>Goodinfo 參考</h2>
+    <p>Goodinfo 只作為標的股背景連結，不參與雷達評分。核心流程仍以 TWSE/TPEX OpenAPI 權證資料為主。</p>
+    <a href="https://goodinfo.tw/tw/" target="_blank" rel="noreferrer">開啟 Goodinfo 台灣股市資訊網</a>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>最新前 10 名</h2>
+      <a href="{{ url_for('radar') }}">看完整前 100 名</a>
+    </div>
+    {% include "_warrant_table.html" %}
+  </section>
+{% endblock %}
