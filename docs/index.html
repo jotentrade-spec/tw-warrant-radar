@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0f7b6c">
+    <title>TW Warrant Radar | 券商回收權證雷達</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#">TW Warrant Radar</a>
+      <nav>
+        <a href="#features">功能</a>
+        <a href="#evidence">證據</a>
+        <a href="#deploy">部署</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Taiwan Warrant OpenAPI Scanner</p>
+          <h1>券商回收權證雷達</h1>
+          <p class="lead">自動讀取 TWSE/TPEX OpenAPI，尋找低價、成交量存在、剩餘天數足夠，且具備前日回收參考價證據的台灣權證候選。</p>
+          <div class="actions">
+            <a class="button" href="https://github.com/" target="_blank" rel="noreferrer">前往 GitHub</a>
+            <a class="button secondary" href="#deploy">查看啟動方式</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="section-head">
+          <p class="eyebrow">Core</p>
+          <h2>核心流程</h2>
+        </div>
+        <div class="grid">
+          <article>
+            <h3>自動探測 API</h3>
+            <p>讀取 TWSE/TPEX swagger.json，自動尋找權證行情、成交與基本資料 endpoint。</p>
+          </article>
+          <article>
+            <h3>欄位自動整理</h3>
+            <p>將不同來源的代號、名稱、收盤、成交量、標的、履約價與到期日整理成統一格式。</p>
+          </article>
+          <article>
+            <h3>同代號合併</h3>
+            <p>行情資料與基本資料分散在不同 endpoint 時，系統會依權證代號合併再評分。</p>
+          </article>
+          <article>
+            <h3>SQLite 留存</h3>
+            <p>每日掃描結果落地保存，便於回測、追蹤與後續模型訓練。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="evidence" class="section band">
+        <div class="section-head">
+          <p class="eyebrow">Evidence</p>
+          <h2>前日回收價證據層</h2>
+        </div>
+        <div class="evidence">
+          <div>
+            <span>公式</span>
+            <strong>前日回收參考價 = 今日 Close - Change</strong>
+          </div>
+          <div>
+            <span>輸出</span>
+            <strong>今日高於 / 等於 / 低於前日回收價</strong>
+          </div>
+          <div>
+            <span>用途</span>
+            <strong>驗證候選權證是否真的有價差機會</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <p class="eyebrow">Score</p>
+          <h2>market_maker_score</h2>
+        </div>
+        <ul class="rules">
+          <li>價格 <= 0.02 加分</li>
+          <li>委買 >= 0.01 大幅加分</li>
+          <li>委賣存在加分</li>
+          <li>成交量存在加分</li>
+          <li>bid/ask 價差小加分</li>
+          <li>剩餘天數 >= 10 加分</li>
+          <li>有前日回收參考價加分</li>
+        </ul>
+      </section>
+
+      <section id="deploy" class="section band">
+        <div class="section-head">
+          <p class="eyebrow">Run</p>
+          <h2>本機啟動 Flask APP</h2>
+        </div>
+        <pre><code>python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python run.py</code></pre>
+        <p class="note">GitHub Pages 只能展示此靜態網站；真正掃描 TWSE/TPEX 的 Flask 後端需要在本機、VPS、Render、Railway 或其他 Python 服務上執行。</p>
+      </section>
+    </main>
+  </body>
+</html>
