@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="權證雷達">
+  <rect width="512" height="512" rx="96" fill="#0f7b6c"/>
+  <circle cx="256" cy="256" r="152" fill="none" stroke="#e8f4f1" stroke-width="24"/>
+  <circle cx="256" cy="256" r="88" fill="none" stroke="#bde7dc" stroke-width="18"/>
+  <path d="M256 104v64M256 344v64M104 256h64M344 256h64" stroke="#ffffff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M164 318l54-58 42 34 88-112" fill="none" stroke="#f7c948" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="348" cy="182" r="20" fill="#ffffff"/>
+</svg>
