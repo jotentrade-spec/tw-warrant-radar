@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}APIs | 券商回收權證雷達{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow">TWSE / TPEX</p>
+        <h1>權證 API 探測結果</h1>
+      </div>
+      <form action="{{ url_for('refresh_apis') }}" method="post">
+        <button type="submit">重新讀取 Swagger</button>
+      </form>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>來源</th>
+            <th>分數</th>
+            <th>標題</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for api in apis %}
+            <tr>
+              <td>{{ api.source }}</td>
+              <td>{{ "%.1f"|format(api.score) }}</td>
+              <td>{{ api.title }}</td>
+              <td><a href="{{ api.url }}" target="_blank" rel="noreferrer">{{ api.url }}</a></td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="4" class="empty">尚未讀取 API。請按「重新讀取 Swagger」。</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
