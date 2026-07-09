@@ -1,0 +1,19 @@
+{
+  "name": "券商回收權證雷達",
+  "short_name": "權證雷達",
+  "description": "自動掃描 TWSE/TPEX OpenAPI 權證候選資料，建立券商回收權證雷達。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f7f8",
+  "theme_color": "#0f7b6c",
+  "icons": [
+    {
+      "src": "/static/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
