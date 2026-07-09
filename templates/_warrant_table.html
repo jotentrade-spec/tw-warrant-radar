@@ -1,0 +1,64 @@
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>分數</th>
+        <th>代號</th>
+        <th>名稱</th>
+        <th>券商</th>
+        <th>收盤</th>
+        <th>前日回收參考</th>
+        <th>對前日</th>
+        <th>委買</th>
+        <th>委賣</th>
+        <th>量</th>
+        <th>標的</th>
+        <th>履約價</th>
+        <th>到期</th>
+        <th>理由</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td data-label="分數"><span class="score">{{ "%.0f"|format(row.market_maker_score) }}</span></td>
+          <td data-label="代號">{{ row.code }}</td>
+          <td data-label="名稱">{{ row.name }}</td>
+          <td data-label="券商">{{ row.issuer }}</td>
+          <td data-label="收盤">{{ row.close_price if row.close_price is not none else "-" }}</td>
+          <td data-label="前日回收參考">{{ row.previous_close_price if row.previous_close_price is not none else "-" }}</td>
+          <td data-label="對前日">
+            {% if row.close_change_pct is not none %}
+              {{ "%.1f%%"|format(row.close_change_pct * 100) }}
+              <small>{{ row.recovery_evidence }}</small>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td data-label="委買">{{ row.bid if row.bid is not none else "-" }}</td>
+          <td data-label="委賣">{{ row.ask if row.ask is not none else "-" }}</td>
+          <td data-label="量">{{ row.volume if row.volume is not none else "-" }}</td>
+          <td data-label="標的">
+            {% if row.underlying %}
+              <a href="{{ goodinfo_stock_url(row.underlying) }}" target="_blank" rel="noreferrer">{{ row.underlying }}</a>
+            {% else %}
+              -
+            {% endif %}
+          </td>
+          <td data-label="履約價">{{ row.strike_price if row.strike_price is not none else "-" }}</td>
+          <td data-label="到期">
+            {{ row.maturity_date }}
+            {% if row.days_to_maturity is not none %}
+              <small>{{ row.days_to_maturity }} 天</small>
+            {% endif %}
+          </td>
+          <td data-label="理由" class="reasons">{{ row.score_reasons }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="14" class="empty">尚無掃描結果。請先按「立即掃描」。</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
