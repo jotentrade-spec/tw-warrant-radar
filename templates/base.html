@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0f7b6c">
+    <meta name="description" content="券商回收權證雷達 PWA，自動掃描 TWSE/TPEX OpenAPI 權證候選資料。">
+    <title>{% block title %}券商回收權證雷達{% endblock %}</title>
+    <link rel="manifest" href="{{ url_for('manifest') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="{{ url_for('index') }}">TW Warrant Radar</a>
+      <nav>
+        <a href="{{ url_for('radar') }}">Radar</a>
+        <a href="{{ url_for('apis') }}">APIs</a>
+      </nav>
+    </header>
+
+    <main class="shell">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <section class="flash">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
